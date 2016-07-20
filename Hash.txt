@@ -1,0 +1,25 @@
+Hash
+
+{} returns a default value of nil
+
+Hash.new(0) returns the default value of 0
+
+Thus if we are trying to use reduce or inject to keep count of occurrence of item in hash. 
+Use Hash.new(0)
+
+e.g. 
+
+"happy new new year again happy".split(' ').inject({}) do |accumulator, str|
+  accumulator[str] += 1
+  accumulator
+end
+
+will fail because the default value is nil
+
+"happy new new year again happy".split(' ').inject(Hash.new(0)) do |accumulator, str|
+  accumulator[str] += 1
+  accumulator
+end
+
+generates {happy: 2, new: 2, year: 1, again:1}, because the empty hash has a default value of 0
+
