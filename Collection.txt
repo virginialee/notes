@@ -1,0 +1,20 @@
+Collection
+
+In order to make a custom object part of the collection, simply include Enumerable and
+implement the each method.
+
+e.g.
+
+class Custom
+  include Enumerable
+  NUMBERS = [2, 4, 6, 8, 10]
+
+  def each
+    NUMBERS.each { |n| yield n if block_given? }
+  end
+end
+
+numbers = Custom.new
+numbers.each { |n| p n }
+
+By mixin Enumerable we get reduce, inject, select for FREE~!
