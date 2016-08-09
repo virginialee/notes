@@ -103,3 +103,32 @@ Nested modules
  end
 
  Mix.Tasks.run
+
+Import directive
+================
+ import Module, [, only:|except: ]
+
+ e.g.
+ 
+ import List, only: [:functions] # only functions 
+ import List, only: [:macros] # only macros
+ import List, only: [ flatten: 1, duplicate: 2 ]
+
+ # can start usng flatten without specifying the module name e.g. flatten rather than List.flatten 
+
+Alias directive
+===============
+ alias Mix.Tasks.Doctest, as: Doctest
+ 
+ is equivalent to
+
+ alias Mix.Tasks.Doctest
+
+ Doctest.setup # similar to Mix.Tasks.Doctest.setup
+   
+Require directive
+================= 
+ Use require to load the module containing the macros. Otherwise the macro can't be used.
+
+
+
