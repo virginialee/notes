@@ -1,0 +1,105 @@
+Basics
+======
+ * Value types:
+   - Arbitrary-sized integers
+   - Floating-point numbers
+   - Atoms
+   - Ranges
+   - Regular expressions
+
+ * System types:
+   - PIDs and ports
+   - References
+
+ * Collection types:
+   - Tuples
+   - Lists
+   - Maps
+   - Binaries
+
+ Call self to obtain the PID of the current process
+
+ Boolean
+  - true, false, nil
+  - anything other than false and nil is treated as true (truthy)
+  - true, false, nil are aliases for atoms e.g. :true, :false and :nil
+
+ "Mrs" <> " " <> "Smith" # string concatenation
+ [1, 2, 3] ++ [4, 5, 6]  # list concatenation
+ [1, 2, 3] -- [2, 3]  # list subtraction
+
+Anonymous Functions
+===================
+
+ Create an anonymous sum function
+ > sum = fn (a, b) -> a + b end
+ > sum.(1, 3) # result is 4
+
+ No parameter still need parentheses
+ > nine = fn -> 9 end
+ > nine.() # result is 9
+
+Helper functions
+================
+ & operator converts the expression that follows into a function
+ &1, &2, &n corresponds to 1st, 2nd, nth parameters of the function
+ &(&1 + &2) == fn (a, b) -> a + b end
+
+Modules and named functions
+===========================
+  defmodule Times do
+    def double(n) do
+      n * 2
+    end
+  end
+
+  is equivalent to
+  
+  defmodule Times, do: (def double(n), do: (n * 2))
+
+Guard Clauses
+=============
+ # to handle negative value in Factorial 
+
+ defmodule Factorial do
+  def of(0), do: 1
+  def of(n) when n > 0 do
+    n * of(n-1)
+  end
+ end
+
+Default parameters
+==================
+ def func(p1, p2 \\ 2, p3 \\ 3, p4) do
+   IO.inspect [p1, p2, p3, p4]
+ end
+
+ def func(p1, p2) do 
+   IO.inspect [p1, p2]
+ end
+
+ Compilation error due to first func definition matches any call with 2, 3 or 4 arguments
+
+Nested modules
+==============
+ There is no such thing as nested modules. When a module is define inside another, the 
+ outer module name is simply prepended to the inner module name. e.g we can directly
+ define a nested module
+  
+ defmodule Mix.Tasks do
+   def run do
+     # do something
+   end
+ end
+ 
+ is equivalent to
+
+ defmodule Mix do
+   defmodule Tasks do
+     def run do
+       # do something
+     end
+   end
+ end
+
+ Mix.Tasks.run
